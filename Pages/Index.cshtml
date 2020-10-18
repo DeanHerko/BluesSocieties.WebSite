@@ -1,0 +1,85 @@
+﻿@page
+@model BluesSocieties.WebSite.Pages.IndexModel
+@{
+    ViewData["Title"] = "Blues Music Society Directory";
+}
+    <link href="~/css/datatables.css" rel="stylesheet" />
+<link href="~/css/logos.css" rel="stylesheet" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.jqueryui.min.css" />
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/dataTables.jqueryui.min.js"></script>
+<script language="javascript">
+    jQuery(document).ready(function () {
+        var dataTable = $('#society-directory').DataTable(
+            {
+                "paging": false,
+                //"ordering": false,
+                //"info": false,
+                ////"dom": '<"top"i>rt<"top"flp><"clear">'
+                //"sDom": 'ltipr'
+            });
+        //$('.dataTables_length').addClass('bs-select');
+        //$("#society-directory caption").css("caption-side", "top");
+        //$("#filterbox").keyup(function () {
+        //    dataTable.search(this.value).draw();
+        //});
+    });
+</script>
+<h4>Find Blues Music Society Web Sites</h4>
+
+@*<input type="text" id="filterbox">*@
+<table id="society-directory" style="float:left">
+    <thead>
+        <tr>
+            <th class="th-sm">Search By Name, City or State:</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var contact in Model.Contacts)
+        {
+            <tr>
+                <td>
+                    <div class="container">
+                        <div class="row"><div id="section-society-logo" class='@contact.LogoFileName.Replace(".jpg", "")' title="@contact.Title Logo"></div>
+                            <div class="col-md-9" id="section-society-name">
+                                
+                                @contact.Title @contact.Locality @contact.AdminDistrict @contact.Region
+                                <div class="row">
+                                    <div class="col-md-6" id="section-society-links">
+
+                                        @if (!String.IsNullOrEmpty(@contact.Facebook))
+                                        {
+                                            <a href='https://@contact.Facebook' target='_blank' title='Facebook: @contact.Title'><img src="~/images/icon-fb.png" /></a>
+                                        }
+                                        @if (!String.IsNullOrEmpty(@contact.HomePage))
+                                        {
+                                            <a href='https://@contact.HomePage' target='_blank' title='Home Page: @contact.HomePage'><img src="~/images/icon-home.jpg" /></a>
+                                        }
+                                        @*@if (!String.IsNullOrEmpty(@contact.HomePage))
+                {
+                    <a href='https://@contact.HomePage' target='_blank' title='Home Page: @contact.HomePage'><img src="~/img/icon-home.jpg" /></a>
+                }*@
+                                        @*@if (!String.IsNullOrEmpty(@contact.Email))
+                {
+                    <a href='mailto:@contact.Email' target='_blank' title='Email: @contact.Email'><img src="~/img/icon-email.png" /></a>
+                }*@
+
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+    @*<tfoot>
+            <tr>
+                <th></th>
+            </tr>
+        </tfoot>*@
+</table>

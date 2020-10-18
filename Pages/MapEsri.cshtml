@@ -1,0 +1,39 @@
+﻿@page
+@model BluesSocieties.WebSite.Pages.MapEsriModel
+@{
+    ViewData["Title"] = "Esri Map";
+}
+<link rel="stylesheet" href="https://js.arcgis.com/3.30/dijit/themes/claro/claro.css">
+<link rel="stylesheet" href="https://js.arcgis.com/3.30/esri/css/esri.css">
+<link href="~/css/map-esri.css" rel="stylesheet" />
+<script>var dojoConfig = { parseOnLoad: true };</script>
+<script src="https://js.arcgis.com/3.30/"></script>
+<script>
+    require([
+        "esri/arcgis/utils",
+        "esri/dijit/LayerList",
+        "dijit/layout/BorderContainer",
+        "dijit/layout/ContentPane",
+        "dojo/domReady!"
+    ], function (
+        arcgisUtils,
+        LayerList
+    ) {
+        //Create a map based on an ArcGIS Online web map id
+        arcgisUtils.createMap("4240fb72057d4ba39f2710dab344558f", "map").then(function (response) {
+            var myWidget = new LayerList({
+                map: response.map,
+                layers: arcgisUtils.getLayerList(response)
+            }, "layerList");
+            myWidget.startup();
+        });
+    });
+</script>
+
+<h4>Find Links To Blues Society Web Sites</h4>
+<div class="container" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline',gutters:false">
+    <div id="layerListPane" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'right'">
+        <div id="layerList"></div>
+    </div>
+    <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+</div>

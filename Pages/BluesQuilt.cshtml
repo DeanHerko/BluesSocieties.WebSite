@@ -1,0 +1,27 @@
+﻿@page
+@model BluesSocieties.WebSite.Pages.BluesQuiltModel
+@{
+    ViewData["Title"] = "BluesQuilt";
+}
+
+<link href="/css/logos.css" rel="stylesheet" />
+
+<h1>Blues Society Logo Quilt</h1>
+<p>Logos are from each blues society. Clicking a logo will take you to their web site.</p>
+
+<p>Download list of Blues Societies: <a href="~/data/blues_societies.csv" target="_blank"> CSV</a>  or  <a href="~/data/blues_societies.json" target="_blank"> JSON</a></p>
+<div id="section-logos">
+    @foreach (var contact in Model.Contacts)
+    {
+        <div class="logo-quilt">
+            @if (!String.IsNullOrEmpty(@contact.HomePage))
+            {
+                <a href="http://@contact.Facebook" target="_blank" title="@contact.Title Homepage"><div class='@contact.LogoFileName.Replace(".jpg", "")'></div></a>
+            }
+            else
+            {
+                <a href="http://@contact.HomePage" target="_blank" title="@contact.Title Facebook"><div class='@contact.LogoFileName.Replace(".jpg", "")'></div></a>
+            }
+        </div>
+    }
+</div>
